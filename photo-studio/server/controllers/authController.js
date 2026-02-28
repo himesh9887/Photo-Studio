@@ -1,0 +1,17 @@
+import jwt from "jsonwebtoken";
+
+export async function loginAdmin(req, res) {
+  const { email, password } = req.body;
+  const adminEmail = process.env.ADMIN_EMAIL || "admin@studio.com";
+  const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+
+  if (email !== adminEmail || password !== adminPassword) {
+    return res.status(401).json({ message: "Invalid credentials" });
+  }
+
+  const token = jwt.sign({ role: "admin", email }, process.env.JWT_SECRET || "dev_secret", { expiresIn: "12h" });
+  return res.json({
+    token,
+    user: { name: "Studio Admin", email, role: "admin" },
+  });
+}
