@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DesktopNavbar from "./DesktopNavbar.jsx";
+import Footer from "./Footer.jsx";
 import FloatingDock from "./FloatingDock.jsx";
 
 export default function Layout({ children }) {
@@ -15,6 +16,7 @@ export default function Layout({ children }) {
     <div className="min-h-screen">
       <DesktopNavbar scrolled={scrolled} />
       <main className="pb-24 md:pb-0">{children}</main>
+      <Footer />
       <FloatingDock />
     </div>
   );
