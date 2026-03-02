@@ -38,7 +38,11 @@ export default function BookingSuccess() {
   const [status, setStatus] = useState("confirming");
 
   useEffect(() => {
-    if (!bookingId) return setStatus("done");
+    if (!bookingId) {
+      setStatus("done");
+      return;
+    }
+
     api
       .patch(`/bookings/${bookingId}/confirm`, {})
       .then(() => setStatus("done"))
@@ -46,19 +50,15 @@ export default function BookingSuccess() {
   }, [bookingId]);
 
   return (
-    <div className="premium-container relative flex min-h-screen items-center justify-center py-24">
+    <div className="premium-container relative flex min-h-screen items-center justify-center py-20 sm:py-24">
       <Confetti />
-      <motion.div className="glass-card relative z-10 w-full max-w-lg rounded-3xl p-8 text-center" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
-        <motion.div
-          className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-[color:var(--gold)] text-[color:var(--gold)]"
-          animate={{ scale: [0.9, 1.06, 1] }}
-          transition={{ duration: 0.6 }}
-        >
+      <motion.div className="relative z-10 w-full max-w-xl rounded-[2rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-6 text-center shadow-2xl sm:p-10" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
+        <motion.div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[color:var(--gold)] text-[color:var(--gold)] sm:h-20 sm:w-20" animate={{ scale: [0.9, 1.06, 1] }} transition={{ duration: 0.6 }}>
           <Check size={36} />
         </motion.div>
-        <p className="text-xs uppercase tracking-[0.25em] text-[color:var(--gold)]">Payment Success</p>
-        <h1 className="mt-3 text-4xl">Booking Confirmed</h1>
-        <p className="mt-4 text-sm text-[color:var(--muted)]">
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-[color:var(--gold)]">Payment Success</p>
+        <h1 className="mt-4 text-3xl leading-tight sm:text-5xl">Booking Confirmed</h1>
+        <p className="mt-6 text-base leading-8 text-[color:var(--muted)] sm:text-lg">
           {status === "confirming" ? "Syncing your confirmation..." : "Your session has been reserved. A confirmation email has been queued."}
         </p>
         <Link to="/" className="mt-8 inline-block">

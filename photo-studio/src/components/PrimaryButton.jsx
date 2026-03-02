@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function PrimaryButton({ children, className = "", variant = "solid", ...props }) {
   const shared =
-    "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] transition-all";
+    "inline-flex min-h-[3.25rem] items-center justify-center rounded-full px-5 py-3 text-center text-sm font-semibold uppercase tracking-[0.18em] transition-all sm:px-6";
 
   const look =
     variant === "outline"

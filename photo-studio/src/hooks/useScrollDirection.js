@@ -7,13 +7,18 @@ export function useScrollDirection() {
   useEffect(() => {
     const handleScroll = () => {
       const current = window.scrollY;
-      if (current < 60) {
+      const delta = current - previousScroll.current;
+      const nearTop = current < 80;
+      const nearBottom = window.innerHeight + current >= document.documentElement.scrollHeight - 24;
+
+      if (nearTop || nearBottom) {
         setIsVisible(true);
-      } else if (current > previousScroll.current) {
+      } else if (delta > 12) {
         setIsVisible(false);
-      } else {
+      } else if (delta < -12) {
         setIsVisible(true);
       }
+
       previousScroll.current = current;
     };
 
