@@ -17,7 +17,7 @@ export default function DesktopNavbar({ scrolled }) {
 
   return (
     <motion.header
-      className="fixed left-0 right-0 top-0 z-40 hidden md:block"
+      className="fixed left-0 right-0 top-0 z-40"
       animate={{
         backgroundColor: scrolled ? "var(--glass)" : "rgba(0,0,0,0)",
         backdropFilter: scrolled ? "blur(20px)" : "blur(0px)",
@@ -25,44 +25,64 @@ export default function DesktopNavbar({ scrolled }) {
       }}
       transition={{ duration: 0.32 }}
     >
-      <div className="premium-container flex h-[4.5rem] items-center justify-between lg:h-20">
-        <Link to="/" className="text-lg font-semibold uppercase tracking-[0.22em] text-[color:var(--gold)] lg:text-xl lg:tracking-[0.28em]">
-          Veloura
-        </Link>
+      <div className="premium-container">
+        <div className="flex h-[4.25rem] items-center justify-between sm:hidden">
+          <Link to="/" className="text-base font-semibold uppercase tracking-[0.2em] text-[color:var(--gold)]">
+            Veloura
+          </Link>
 
-        <nav className="flex items-center gap-3 lg:gap-6 xl:gap-8">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `group relative py-2 text-[11px] uppercase tracking-[0.18em] transition-colors lg:text-xs lg:tracking-[0.24em] ${
-                  isActive ? "text-[color:var(--gold)]" : "text-[color:var(--text)]/76 hover:text-[color:var(--text)]"
-                }`
-              }
+          <div className="flex items-center gap-2">
+            <Link
+              to="/booking"
+              className="inline-flex min-h-[2.75rem] items-center rounded-full border border-[color:var(--gold)]/20 bg-[color:var(--gold)]/10 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--gold)]"
             >
-              {({ isActive }) => (
-                <>
-                  {item.label}
-                  <motion.span
-                    className="absolute -bottom-1 left-0 h-px w-full origin-left bg-[color:var(--gold)]"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                  />
-                  {isActive ? <motion.span layoutId="active-nav" className="absolute -bottom-1 left-0 h-px w-full bg-[color:var(--gold)]" /> : null}
-                </>
-              )}
-            </NavLink>
-          ))}
+              Book
+            </Link>
+            <button
+              onClick={toggleTheme}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[color:var(--line)] bg-[color:var(--glass)] text-[color:var(--gold)]"
+              aria-label="Toggle theme"
+            >
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+          </div>
+        </div>
 
-          <button
-            onClick={toggleTheme}
-            className="rounded-full border border-[color:var(--line)] p-2 text-[color:var(--gold)] transition hover:rotate-6 hover:bg-[color:var(--gold)]/10"
-            aria-label="Toggle theme"
-          >
-            {isDark ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
-        </nav>
+        <div className="hidden sm:flex sm:h-[4.75rem] sm:items-center sm:justify-between lg:h-20">
+          <Link to="/" className="shrink-0 text-lg font-semibold uppercase tracking-[0.2em] text-[color:var(--gold)] lg:text-xl lg:tracking-[0.28em]">
+            Veloura
+          </Link>
+
+          <div className="ml-4 flex min-w-0 flex-1 items-center justify-end gap-3 lg:gap-5">
+            <nav className="min-w-0 flex-1 overflow-x-auto">
+              <div className="flex min-w-max items-center justify-end gap-1 rounded-full border border-[color:var(--line)] bg-[color:var(--glass)] px-2 py-2 md:gap-1.5 md:px-2.5 lg:gap-2 lg:px-3">
+                {navItems.map((item) => (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    className={({ isActive }) =>
+                      `rounded-full px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors md:px-3.5 md:text-xs md:tracking-[0.16em] lg:px-4 lg:tracking-[0.2em] ${
+                        isActive
+                          ? "bg-[color:var(--gold)] text-black"
+                          : "text-[color:var(--text)]/76 hover:bg-white/5 hover:text-[color:var(--text)]"
+                      }`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </div>
+            </nav>
+
+            <button
+              onClick={toggleTheme}
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[color:var(--line)] bg-[color:var(--glass)] text-[color:var(--gold)] transition hover:rotate-6 hover:bg-[color:var(--gold)]/10"
+              aria-label="Toggle theme"
+            >
+              {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+          </div>
+        </div>
       </div>
     </motion.header>
   );

@@ -26,7 +26,7 @@ const services = [
 
 export default function ServicesSection() {
   return (
-    <section className="px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <section className="px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
       <div className="premium-container">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
@@ -35,18 +35,18 @@ export default function ServicesSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="mx-auto max-w-3xl text-center"
         >
-          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:var(--gold)] sm:text-xs sm:tracking-[0.34em]">
+          <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[color:var(--gold)] sm:text-xs sm:tracking-[0.34em]">
             Services
           </p>
-          <h2 className="mt-4 text-[2rem] font-semibold leading-tight sm:mt-5 sm:text-5xl lg:text-6xl">
+          <h2 className="mt-3 text-[1.8rem] font-semibold leading-tight sm:mt-5 sm:text-5xl lg:text-6xl">
             Premium service cards with clearer content and stronger visual depth.
           </h2>
-          <p className="mt-4 text-sm leading-7 text-[color:var(--muted)] sm:mt-6 sm:text-lg sm:leading-8">
+          <p className="mt-3 text-[13px] leading-6 text-[color:var(--muted)] sm:mt-6 sm:text-lg sm:leading-8">
             Each card uses cinematic imagery, rounded edges, soft glow borders, and hover lift so the section feels far more professional.
           </p>
         </motion.div>
 
-        <div className="mt-10 grid gap-4 sm:mt-14 sm:gap-6 lg:grid-cols-3">
+        <div className="mt-8 grid gap-3 sm:mt-14 sm:gap-6 lg:grid-cols-3">
           {services.map((service, index) => (
             <motion.article
               key={service.title}
@@ -55,7 +55,7 @@ export default function ServicesSection() {
               viewport={{ once: true, amount: 0.16 }}
               transition={{ duration: 0.55, delay: index * 0.08, ease: "easeOut" }}
               whileHover={{ y: -10 }}
-              className="group overflow-hidden rounded-[1.5rem] border sm:rounded-[2rem]"
+              className="group overflow-hidden rounded-[1.25rem] border sm:rounded-[2rem]"
               style={{
                 borderColor: "color-mix(in oklab, var(--gold) 12%, var(--line))",
                 background: "color-mix(in oklab, var(--surface) 92%, transparent)",
@@ -63,7 +63,7 @@ export default function ServicesSection() {
                   "0 18px 44px rgba(0, 0, 0, 0.18), 0 0 0 1px color-mix(in oklab, var(--gold) 10%, transparent)",
               }}
             >
-              <div className="relative h-52 overflow-hidden sm:h-64">
+              <div className="relative h-44 overflow-hidden sm:h-64">
                 <motion.img
                   whileHover={{ scale: 1.06 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
@@ -74,12 +74,12 @@ export default function ServicesSection() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
               </div>
 
-              <div className="p-5 sm:p-7">
-                <h3 className="text-lg font-semibold sm:text-2xl">{service.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[color:var(--muted)] sm:mt-4 sm:text-base sm:leading-8">
+              <div className="p-4 sm:p-7">
+                <h3 className="text-base font-semibold sm:text-2xl">{service.title}</h3>
+                <p className="mt-2.5 text-[13px] leading-6 text-[color:var(--muted)] sm:mt-4 sm:text-base sm:leading-8">
                   {service.description}
                 </p>
-                <div className="mt-5 h-1 w-12 rounded-full bg-[color:var(--gold)] transition-all duration-300 group-hover:w-20 sm:mt-6 sm:w-14" />
+                <div className="mt-4 h-1 w-10 rounded-full bg-[color:var(--gold)] transition-all duration-300 group-hover:w-20 sm:mt-6 sm:w-14" />
               </div>
             </motion.article>
           ))}

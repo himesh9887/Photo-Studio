@@ -1,6 +1,5 @@
 import HeroSection from "../components/home/HeroSection.jsx";
 import ServicesSection from "../components/home/ServicesSection.jsx";
-import PortfolioSection from "../components/home/PortfolioSection.jsx";
 import WhyChooseUsSection from "../components/home/WhyChooseUsSection.jsx";
 import TestimonialsSection from "../components/home/TestimonialsSection.jsx";
 import HomeCtaSection from "../components/home/HomeCtaSection.jsx";
@@ -17,7 +16,6 @@ export default function Home() {
     >
       <HeroSection />
       <ServicesSection />
-      <PortfolioSection />
       <WhyChooseUsSection />
       <TestimonialsSection />
       <HomeCtaSection />

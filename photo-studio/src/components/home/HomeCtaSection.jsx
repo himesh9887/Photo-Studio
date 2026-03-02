@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 
 export default function HomeCtaSection() {
   return (
-    <section className="px-4 pb-24 pt-6 sm:px-6 sm:pt-8 lg:px-8 lg:pb-32">
+    <section className="px-4 pb-24 pt-4 sm:px-6 sm:pt-8 lg:px-8 lg:pb-32">
       <div className="premium-container">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative overflow-hidden rounded-[1.6rem] border sm:rounded-[2rem]"
+          className="relative overflow-hidden rounded-[1.35rem] border sm:rounded-[2rem]"
           style={{
             borderColor: "rgba(255,255,255,0.1)",
             boxShadow: "var(--shadow-premium)",
@@ -25,24 +25,24 @@ export default function HomeCtaSection() {
           <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(8,8,8,0.86),rgba(8,8,8,0.52),rgba(8,8,8,0.8))]" />
           <div className="absolute -right-16 top-0 h-44 w-44 rounded-full bg-[rgba(212,175,55,0.14)] blur-3xl" />
 
-          <div className="relative px-4 py-8 text-center sm:px-10 sm:py-14 lg:px-16 lg:py-20">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-[color:#efd07b] sm:text-xs sm:tracking-[0.34em]">
+          <div className="relative px-3.5 py-6 text-center sm:px-10 sm:py-14 lg:px-16 lg:py-20">
+            <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[color:#efd07b] sm:text-xs sm:tracking-[0.34em]">
               Ready To Book
             </p>
-            <h2 className="mx-auto mt-4 max-w-4xl text-[2rem] font-semibold leading-tight text-white sm:mt-5 sm:text-5xl lg:text-6xl">
+            <h2 className="mx-auto mt-3 max-w-4xl text-[1.8rem] font-semibold leading-tight text-white sm:mt-5 sm:text-5xl lg:text-6xl">
               A premium homepage should make serious clients want to enquire immediately.
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/72 sm:mt-6 sm:text-lg sm:leading-8">
+            <p className="mx-auto mt-3 max-w-xl text-[13px] leading-6 text-white/72 sm:mt-6 sm:max-w-2xl sm:text-lg sm:leading-8">
               The layout is now built to create stronger first impressions, clearer trust, and better booking intent across devices.
             </p>
 
-            <Link to="/booking" className="mt-6 inline-block w-full sm:mt-10 sm:w-auto">
+            <Link to="/booking" className="mt-5 inline-block w-full sm:mt-10 sm:w-auto">
               <motion.span
                 animate={{ boxShadow: ["0 0 0 rgba(212,175,55,0.18)", "0 0 0 12px rgba(212,175,55,0)", "0 0 0 rgba(212,175,55,0.18)"] }}
                 transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="inline-flex min-h-[3.25rem] w-full items-center justify-center gap-3 rounded-full px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] sm:min-h-0 sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.22em] sm:w-auto"
+                className="inline-flex min-h-[3rem] w-full items-center justify-center gap-2.5 rounded-full px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] sm:min-h-0 sm:gap-3 sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.22em] sm:w-auto"
                 style={{ background: "var(--gold)", color: "#15110c" }}
               >
                 Book Now <ArrowRight size={18} />
