@@ -36,24 +36,25 @@ export default function HeroSection() {
   const currentSlide = slides[activeSlide];
 
   return (
-    <section className="relative px-4 pb-12 pt-20 sm:px-6 sm:pb-20 sm:pt-24 lg:px-8 lg:min-h-screen lg:pb-28 lg:pt-20">
+    <section className="relative px-4 pb-12 pt-20 sm:px-6 sm:pb-20 sm:pt-24 lg:min-h-screen lg:px-8 lg:pb-24 lg:pt-20">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(212,175,55,0.14),transparent_32%),radial-gradient(circle_at_80%_12%,rgba(212,175,55,0.08),transparent_22%)]" />
-        <div className="absolute left-1/2 top-20 h-72 w-72 -translate-x-1/2 rounded-full bg-[rgba(212,175,55,0.08)] blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(212,175,55,0.16),transparent_30%),radial-gradient(circle_at_82%_18%,rgba(212,175,55,0.08),transparent_20%),linear-gradient(180deg,rgba(10,10,10,0.14),transparent_30%)]" />
+        <div className="absolute left-[10%] top-24 h-72 w-72 rounded-full bg-[rgba(212,175,55,0.09)] blur-3xl" />
       </div>
 
-      <div className="premium-container">
+      <div className="mx-auto w-full max-w-[1440px]">
         <motion.div
           initial={{ opacity: 0, y: 36 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, ease: "easeOut" }}
-          className="section-shell relative overflow-hidden rounded-[1.5rem] px-3.5 py-4 sm:rounded-[2rem] sm:px-8 sm:py-8 lg:px-10 lg:py-10"
+          className="relative overflow-hidden lg:min-h-[calc(100vh-6.5rem)]"
         >
-          <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.05),transparent_44%,rgba(212,175,55,0.08))]" />
+          <div className="absolute inset-0 bg-[linear-gradient(135deg,color-mix(in_oklab,var(--surface)_32%,transparent),transparent_44%,color-mix(in_oklab,var(--gold)_4%,transparent))]" />
+          <div className="absolute inset-y-0 right-0 hidden w-[58%] bg-[linear-gradient(120deg,transparent,rgba(12,12,12,0.06),rgba(12,12,12,0.14))] lg:block" />
 
-          <div className="relative grid gap-5 sm:gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
+          <div className="relative grid gap-6 py-4 sm:gap-10 sm:py-7 lg:min-h-[calc(100vh-6.5rem)] lg:grid-cols-[0.94fr_1.06fr] lg:items-center lg:py-10">
             <div className="relative order-1 lg:order-2">
-              <div className="relative h-[15rem] overflow-hidden rounded-[1.35rem] border p-2 sm:h-[31rem] sm:rounded-[2rem] sm:p-3" style={{ borderColor: "var(--line)" }}>
+              <div className="relative h-[18rem] overflow-hidden rounded-[1.5rem] border p-2 sm:h-[34rem] sm:rounded-[2.25rem] sm:p-3 lg:mx-8 lg:h-[min(76vh,44rem)] xl:mx-0" style={{ borderColor: "color-mix(in oklab, var(--gold) 14%, var(--line))" }}>
                 <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/35" />
 
                 <AnimatePresence mode="wait">
@@ -89,7 +90,7 @@ export default function HeroSection() {
                 </AnimatePresence>
               </div>
 
-              <div className="mt-2.5 rounded-[1rem] border px-3 py-2.5 backdrop-blur-xl sm:absolute sm:-bottom-6 sm:left-auto sm:right-6 sm:mt-0 sm:max-w-[18rem] sm:rounded-[1.5rem] sm:px-5 sm:py-4" style={{ borderColor: "rgba(255,255,255,0.12)", background: "rgba(12,12,12,0.58)" }}>
+              <div className="mx-3 mt-3 rounded-[1rem] border px-3 py-2.5 backdrop-blur-xl sm:mx-0 sm:absolute sm:bottom-6 sm:left-6 sm:mt-0 sm:max-w-[18rem] sm:rounded-[1.5rem] sm:px-5 sm:py-4" style={{ borderColor: "rgba(255,255,255,0.12)", background: "rgba(12,12,12,0.58)" }}>
                 <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:#efd07b] sm:text-xs sm:tracking-[0.28em]">
                   Studio Positioning
                 </p>
@@ -99,7 +100,7 @@ export default function HeroSection() {
               </div>
             </div>
 
-            <div className="order-2 text-center lg:order-1 lg:text-left">
+            <div className="order-2 flex flex-col justify-center px-3 text-center sm:px-0 lg:order-1 lg:max-w-[38rem] lg:pr-6 lg:text-left">
               <p className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[color:var(--gold)] sm:text-xs sm:tracking-[0.34em]">
                 Modern Dark Cinematic UI
               </p>
@@ -107,7 +108,7 @@ export default function HeroSection() {
                 Professional photo studio presence, built to convert.
               </h1>
               <p className="mx-auto mt-3.5 max-w-xl text-[13px] leading-6 text-[color:var(--muted)] sm:mt-6 sm:max-w-2xl sm:text-base sm:leading-8 lg:mx-0 lg:text-lg">
-                Large type, emotional copy, premium contrast, and polished motion make the first screen feel intentional instead of template-like.
+                Full-screen composition, cleaner spacing, and stronger contrast make the first screen feel open, premium, and easier to trust.
               </p>
 
               <div className="mt-5 flex flex-col gap-2.5 sm:mt-10 sm:gap-4 sm:flex-row sm:justify-center lg:justify-start">
@@ -135,16 +136,16 @@ export default function HeroSection() {
 
               <div className="mt-5 grid grid-cols-3 gap-2 sm:mt-10 sm:gap-4">
                 {[
-                  ["Luxury", "first"],
-                  ["Mobile", "ready"],
-                  ["Smooth", "motion"],
+                  ["Luxury", "feel"],
+                  ["Full", "screen"],
+                  ["Fast", "booking"],
                 ].map(([value, label]) => (
                   <div
                     key={value}
                     className="rounded-[1rem] border px-2.5 py-3 text-center sm:rounded-3xl sm:px-5 sm:py-5 sm:text-left"
                     style={{
                       borderColor: "var(--line)",
-                      background: "color-mix(in oklab, var(--surface) 90%, transparent)",
+                      background: "color-mix(in oklab, var(--surface) 84%, transparent)",
                     }}
                   >
                     <p className="text-[13px] font-semibold sm:text-lg">{value}</p>

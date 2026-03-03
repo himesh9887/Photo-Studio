@@ -44,32 +44,36 @@ export default function TestimonialsSection() {
 
   return (
     <section className="px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
-      <div className="premium-container">
-        <div className="section-shell rounded-[1.35rem] px-3.5 py-4 sm:rounded-[2rem] sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+      <div className="mx-auto w-full max-w-[1440px]">
+        <div className="relative overflow-hidden rounded-[1.5rem] px-3.5 py-4 sm:rounded-[2.5rem] sm:px-8 sm:py-10 lg:px-12 lg:py-14">
+          <div className="absolute inset-0 border border-[color:var(--line)] bg-[linear-gradient(135deg,color-mix(in_oklab,var(--surface)_60%,transparent),color-mix(in_oklab,var(--bg-soft)_72%,transparent)_42%,color-mix(in_oklab,var(--gold)_5%,transparent))]" />
+          <div className="absolute left-[-4rem] top-[-4rem] h-36 w-36 rounded-full bg-[color:var(--gold)]/10 blur-3xl" />
+          <div className="absolute bottom-[-5rem] right-[-3rem] h-44 w-44 rounded-full bg-[color:var(--gold-soft)]/10 blur-3xl" />
+
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center"
+            className="relative grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center"
           >
             <div>
               <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-[color:var(--gold)] sm:text-xs sm:tracking-[0.34em]">
                 Testimonials
               </p>
               <h2 className="mt-3 text-[1.8rem] font-semibold leading-tight sm:mt-5 sm:text-5xl">
-                Auto-sliding reviews with stronger social proof.
+                Full-width social proof that feels cleaner and more premium.
               </h2>
               <p className="mt-3 text-[13px] leading-6 text-[color:var(--muted)] sm:mt-6 sm:text-lg sm:leading-8">
-                Cleaner testimonial presentation makes the page feel more trustworthy and far less cluttered.
+                The content sits in an open section instead of a heavy inner card, so the page keeps breathing room while still showing trust.
               </p>
             </div>
 
             <div
-              className="overflow-hidden rounded-[1.15rem] border px-3.5 py-4 sm:rounded-[1.8rem] sm:px-8 sm:py-8"
+              className="overflow-hidden rounded-[1.35rem] border px-3.5 py-4 sm:rounded-[2rem] sm:px-8 sm:py-8"
               style={{
-                borderColor: "var(--line)",
-                background: "color-mix(in oklab, var(--surface) 92%, transparent)",
+                borderColor: "color-mix(in oklab, var(--gold) 10%, var(--line))",
+                background: "color-mix(in oklab, var(--surface) 86%, transparent)",
               }}
             >
               <AnimatePresence mode="wait">
