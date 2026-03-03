@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Instagram, Mail, MapPin, Phone, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext.jsx";
 
 const quickLinks = [
   { label: "Home", to: "/" },
@@ -30,27 +31,55 @@ const socials = [
 
 export default function StudioFooter() {
   const year = new Date().getFullYear();
+  const { isDark } = useTheme();
+
+  const footerTheme = isDark
+    ? {
+        "--surface": "rgba(18, 18, 18, 0.92)",
+        "--text": "#ffffff",
+        "--muted": "rgba(255, 255, 255, 0.7)",
+        "--line": "rgba(255, 255, 255, 0.1)",
+        "--gold": "#d4af37",
+        "--gold-soft": "#efd07b",
+      }
+    : {
+        "--surface": "rgba(255, 248, 239, 0.94)",
+        "--text": "#1d160f",
+        "--muted": "#6b5f52",
+        "--line": "rgba(197, 154, 82, 0.16)",
+        "--gold": "#b78638",
+        "--gold-soft": "#d8b06a",
+      };
 
   return (
     <footer className="px-4 pb-28 pt-10 sm:px-6 sm:pt-12 md:pb-12 lg:px-8">
-      <div className="relative mx-auto w-full max-w-[1440px]">
+      <div
+        className="relative mx-auto w-full max-w-[1440px]"
+        style={footerTheme}
+      >
         <div className="pointer-events-none absolute -left-10 top-6 h-28 w-28 rounded-full bg-[rgba(212,175,55,0.1)] blur-3xl sm:-left-14 sm:top-10 sm:h-36 sm:w-36" />
         <div className="pointer-events-none absolute right-0 top-0 h-28 w-28 rounded-full bg-[color:var(--gold-soft)]/8 blur-3xl sm:h-40 sm:w-40" />
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(212,175,55,0.24)] to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-full bg-[linear-gradient(180deg,rgba(10,10,10,0.14),transparent_16%,rgba(10,10,10,0.2))]" />
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-full"
+          style={{
+            background:
+              "linear-gradient(180deg, color-mix(in oklab, var(--text) 8%, transparent), transparent 16%, color-mix(in oklab, var(--text) 10%, transparent))",
+          }}
+        />
 
         <div className="relative sm:hidden">
           <div className="px-0 py-5">
-            <div className="px-1 py-1">
+            <div className="rounded-[1.35rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_92%,transparent)] px-3 py-4 shadow-[0_16px_34px_rgba(0,0,0,0.08)]">
               <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }}>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--gold-soft)]">
+                <div className="inline-flex items-center gap-2 rounded-full border border-(--line) bg-[color-mix(in_oklab,var(--surface)_86%,transparent)] px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-(--gold)">
                   <span className="h-2 w-2 rounded-full bg-[color:var(--gold-soft)]" />
                   Veloura Studio
                 </div>
-                <h2 className="mt-4 text-[1.8rem] leading-tight text-white">
+                <h2 className="mt-4 text-[1.55rem] leading-tight text-(--text)">
                   Premium wedding visuals with a cleaner modern presence.
                 </h2>
-                <p className="mt-3 text-sm leading-7 text-white/68">
+                <p className="mt-3 text-sm leading-7 text-(--muted)">
                   Built for mobile too: cleaner structure, better spacing, and a more premium first impression.
                 </p>
               </motion.div>
@@ -58,28 +87,28 @@ export default function StudioFooter() {
               <div className="mt-5 grid grid-cols-2 gap-3">
                 <Link
                   to="/booking"
-                  className="rounded-[1.15rem] border border-[color:var(--gold)]/20 bg-[color:var(--gold)]/10 px-4 py-4 shadow-[0_12px_28px_rgba(212,175,55,0.08)]"
+                  className="rounded-[1.15rem] border border-[color:var(--gold)]/20 bg-[color:var(--gold)]/10 px-3 py-3.5 shadow-[0_12px_28px_rgba(212,175,55,0.08)]"
                 >
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--gold-soft)]">Book</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-(--gold)">Book</p>
                   <div className="mt-2 flex items-center justify-between gap-2">
-                    <span className="text-sm font-semibold text-white">Reserve Date</span>
-                    <ArrowUpRight size={16} className="text-[color:var(--gold-soft)]" />
+                    <span className="text-sm font-semibold text-(--text)">Reserve Date</span>
+                    <ArrowUpRight size={16} className="text-(--gold)" />
                   </div>
                 </Link>
                 <Link
                   to="/gallery"
-                  className="rounded-[1.15rem] border border-white/10 bg-white/[0.04] px-4 py-4"
+                  className="rounded-[1.15rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-3 py-3.5"
                 >
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--gold-soft)]">Work</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-(--gold)">Work</p>
                   <div className="mt-2 flex items-center justify-between gap-2">
-                    <span className="text-sm font-semibold text-white">View Portfolio</span>
-                    <ArrowUpRight size={16} className="text-[color:var(--gold-soft)]" />
+                    <span className="text-sm font-semibold text-(--text)">View Portfolio</span>
+                    <ArrowUpRight size={16} className="text-(--gold)" />
                   </div>
                 </Link>
               </div>
 
-              <div className="mt-6 px-1">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--gold-soft)]">
+              <div className="mt-6">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-(--gold)">
                   Quick Links
                 </p>
                 <div className="mt-3 grid grid-cols-2 gap-2">
@@ -87,7 +116,7 @@ export default function StudioFooter() {
                     <Link
                       key={item.label}
                       to={item.to}
-                      className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2.5 text-center text-xs font-medium text-white/78 transition hover:border-[color:var(--gold)]/30 hover:text-white"
+                      className="rounded-full border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-3 py-2.5 text-center text-xs font-medium text-(--text) transition hover:border-[color:var(--gold)]/30 hover:text-(--gold)"
                     >
                       {item.label}
                     </Link>
@@ -95,15 +124,15 @@ export default function StudioFooter() {
                 </div>
               </div>
 
-              <div className="mt-6 px-1">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--gold-soft)]">
+              <div className="mt-6">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-(--gold)">
                   Services
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {services.map((item) => (
                     <span
                       key={item}
-                      className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-2.5 text-[11px] font-medium text-white/70"
+                      className="rounded-full border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-3 py-2.5 text-[11px] font-medium text-(--muted)"
                     >
                       {item}
                     </span>
@@ -111,8 +140,8 @@ export default function StudioFooter() {
                 </div>
               </div>
 
-              <div className="mt-6 px-1">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--gold-soft)]">
+              <div className="mt-6">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-(--gold)">
                   Contact
                 </p>
                 <div className="mt-3 space-y-2.5">
@@ -120,18 +149,18 @@ export default function StudioFooter() {
                     const Icon = item.icon;
 
                     return (
-                      <div key={item.text} className="flex items-start gap-3 rounded-[1rem] border border-white/10 bg-white/[0.03] px-3 py-3">
-                        <span className="mt-0.5 inline-flex rounded-lg bg-white/8 p-2 text-[color:var(--gold-soft)]">
+                      <div key={item.text} className="flex items-start gap-3 rounded-[1rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-3 py-3">
+                        <span className="mt-0.5 inline-flex rounded-lg bg-[color-mix(in_oklab,var(--gold)_10%,transparent)] p-2 text-(--gold)">
                           <Icon size={15} />
                         </span>
-                        <p className="text-xs leading-6 text-white/70">{item.text}</p>
+                        <p className="text-xs leading-6 text-(--muted)">{item.text}</p>
                       </div>
                     );
                   })}
                 </div>
               </div>
 
-              <div className="mt-6 flex gap-2 px-1">
+              <div className="mt-6 flex gap-2">
                 {socials.map((item) => {
                   const Icon = item.icon;
 
@@ -141,7 +170,7 @@ export default function StudioFooter() {
                       href={item.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex min-h-[3rem] flex-1 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-white"
+                      className="flex min-h-[3rem] flex-1 items-center justify-center gap-2 rounded-full border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-3 py-2.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-(--text) transition hover:border-[color:var(--gold)]/30 hover:text-(--gold)"
                     >
                       <Icon size={14} />
                       {item.label}
@@ -151,25 +180,27 @@ export default function StudioFooter() {
               </div>
             </div>
 
-            <div className="mt-5 border-t border-white/10 px-1 py-4 text-center text-[10px] uppercase tracking-[0.16em] text-white/45">
+            <div className="mt-5 border-t border-(--line) px-1 py-4 text-center text-[10px] uppercase tracking-[0.16em] text-(--muted)">
               <p>Veloura Studio (c) {year}</p>
               <p className="mt-1">Dark cinematic photo studio website</p>
             </div>
           </div>
+        </div>
 
-          <div className="relative hidden sm:block sm:px-0 sm:py-10 lg:py-12">
-            <div className="border-b border-white/10 pb-8">
+        <div className="relative hidden sm:block sm:px-0 sm:py-10 lg:py-12">
+          <div className="rounded-[2rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_92%,transparent)] px-6 py-8 shadow-[0_18px_42px_rgba(0,0,0,0.08)] lg:px-8 lg:py-10">
+            <div className="border-b border-(--line) pb-8">
               <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }}>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--gold-soft)]">
+                <div className="inline-flex items-center gap-2 rounded-full border border-(--line) bg-[color-mix(in_oklab,var(--surface)_86%,transparent)] px-3 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-(--gold)">
                   <span className="h-2 w-2 rounded-full bg-[color:var(--gold-soft)]" />
                   Veloura Studio
                 </div>
                 <div className="mt-5 grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
                   <div>
-                    <h2 className="max-w-2xl text-4xl leading-tight text-white lg:text-5xl">
+                    <h2 className="max-w-2xl text-4xl leading-tight text-(--text) lg:text-5xl">
                       Modern cinematic visuals with a cleaner, wider footer layout.
                     </h2>
-                    <p className="mt-5 max-w-2xl text-base leading-8 text-white/68">
+                    <p className="mt-5 max-w-2xl text-base leading-8 text-(--muted)">
                       The footer now feels more open and aligned with the homepage instead of looking like a separate heavy card.
                     </p>
                   </div>
@@ -178,20 +209,20 @@ export default function StudioFooter() {
                       to="/booking"
                       className="rounded-[1.35rem] border border-[color:var(--gold)]/20 bg-[color:var(--gold)]/10 px-5 py-4 transition hover:bg-[color:var(--gold)]/14"
                     >
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--gold-soft)]">Book</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-(--gold)">Book</p>
                       <div className="mt-2 flex items-center justify-between gap-3">
-                        <span className="text-sm font-semibold text-white">Reserve Your Date</span>
-                        <ArrowUpRight size={16} className="text-[color:var(--gold-soft)]" />
+                        <span className="text-sm font-semibold text-(--text)">Reserve Your Date</span>
+                        <ArrowUpRight size={16} className="text-(--gold)" />
                       </div>
                     </Link>
                     <Link
                       to="/gallery"
-                      className="rounded-[1.35rem] border border-white/10 bg-white/[0.04] px-5 py-4 transition hover:border-[color:var(--gold)]/20 hover:bg-white/[0.06]"
+                      className="rounded-[1.35rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-5 py-4 transition hover:border-[color:var(--gold)]/20 hover:bg-[color-mix(in_oklab,var(--surface)_94%,transparent)]"
                     >
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--gold-soft)]">Portfolio</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-(--gold)">Portfolio</p>
                       <div className="mt-2 flex items-center justify-between gap-3">
-                        <span className="text-sm font-semibold text-white">View Recent Work</span>
-                        <ArrowUpRight size={16} className="text-[color:var(--gold-soft)]" />
+                        <span className="text-sm font-semibold text-(--text)">View Recent Work</span>
+                        <ArrowUpRight size={16} className="text-(--gold)" />
                       </div>
                     </Link>
                   </div>
@@ -206,7 +237,7 @@ export default function StudioFooter() {
                         href={item.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:border-[color:var(--gold)] hover:text-[color:var(--gold-soft)]"
+                        className="inline-flex items-center gap-2 rounded-full border border-(--line) bg-[color-mix(in_oklab,var(--surface)_86%,transparent)] px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-(--text) transition hover:border-[color:var(--gold)] hover:text-(--gold)"
                       >
                         <Icon size={14} />
                         {item.label}
@@ -219,13 +250,13 @@ export default function StudioFooter() {
 
             <div className="mt-8 grid gap-6 lg:grid-cols-[0.7fr_0.8fr_1fr]">
               <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }}>
-                <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] px-5 py-5 backdrop-blur-xl">
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--gold-soft)]">
+                <div className="rounded-[1.5rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-5 py-5 backdrop-blur-xl">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-(--gold)">
                     Quick Links
                   </p>
                   <div className="mt-5 grid gap-3">
                     {quickLinks.map((item) => (
-                      <Link key={item.label} to={item.to} className="text-sm text-white/72 transition hover:translate-x-1 hover:text-[color:var(--gold-soft)]">
+                      <Link key={item.label} to={item.to} className="text-sm text-(--muted) transition hover:translate-x-1 hover:text-(--gold)">
                         {item.label}
                       </Link>
                     ))}
@@ -234,13 +265,13 @@ export default function StudioFooter() {
               </motion.div>
 
               <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ delay: 0.08 }}>
-                <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] px-5 py-5 backdrop-blur-xl">
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--gold-soft)]">
+                <div className="rounded-[1.5rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-5 py-5 backdrop-blur-xl">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-(--gold)">
                     Services
                   </p>
                   <div className="mt-5 grid gap-3">
                     {services.map((item) => (
-                      <p key={item} className="text-sm text-white/72">
+                      <p key={item} className="text-sm text-(--muted)">
                         {item}
                       </p>
                     ))}
@@ -249,8 +280,8 @@ export default function StudioFooter() {
               </motion.div>
 
               <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ delay: 0.16 }}>
-                <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] px-5 py-5 backdrop-blur-xl">
-                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--gold-soft)]">
+                <div className="rounded-[1.5rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-5 py-5 backdrop-blur-xl">
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-(--gold)">
                     Contact
                   </p>
                   <div className="mt-5 space-y-4">
@@ -258,11 +289,11 @@ export default function StudioFooter() {
                       const Icon = item.icon;
 
                       return (
-                        <div key={item.text} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                          <span className="mt-0.5 inline-flex rounded-xl bg-white/8 p-2 text-[color:var(--gold-soft)]">
+                        <div key={item.text} className="flex items-start gap-3 rounded-2xl border border-(--line) bg-[color-mix(in_oklab,var(--surface)_86%,transparent)] px-4 py-3">
+                          <span className="mt-0.5 inline-flex rounded-xl bg-[color-mix(in_oklab,var(--gold)_10%,transparent)] p-2 text-(--gold)">
                             <Icon size={16} />
                           </span>
-                          <p className="text-sm leading-6 text-white/70">{item.text}</p>
+                          <p className="text-sm leading-6 text-(--muted)">{item.text}</p>
                         </div>
                       );
                     })}
@@ -271,7 +302,7 @@ export default function StudioFooter() {
               </motion.div>
             </div>
 
-            <div className="mt-8 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs uppercase tracking-[0.22em] text-white/45 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-8 flex flex-col gap-3 border-t border-(--line) pt-6 text-xs uppercase tracking-[0.22em] text-(--muted) sm:flex-row sm:items-center sm:justify-between">
               <p>Veloura Studio (c) {year}</p>
               <p>Dark cinematic photo studio website</p>
             </div>
