@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-export default function FormField({ label, name, value, onChange, error, textarea = false, type = "text" }) {
+export default function FormField({ label, name, value, onChange, error, textarea = false, type = "text", ...rest }) {
   const El = textarea ? "textarea" : "input";
   const hasValue = Boolean(value);
 
@@ -16,6 +16,7 @@ export default function FormField({ label, name, value, onChange, error, textare
         onChange={onChange}
         type={type}
         rows={textarea ? 4 : undefined}
+        {...rest}
         className={`peer w-full rounded-2xl border bg-transparent px-4 pb-3 pt-6 text-sm text-[color:var(--text)] outline-none transition-all ${
           error
             ? "border-red-400 shadow-[0_0_0_2px_rgba(248,113,113,0.3)]"
