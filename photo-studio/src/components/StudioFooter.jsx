@@ -187,7 +187,7 @@ export default function StudioFooter() {
           </div>
         </div>
 
-        <div className="relative hidden sm:block sm:px-0 sm:py-10 lg:py-12">
+        <div className="relative hidden sm:block sm:px-0 sm:py-9 lg:py-11">
           <div className="rounded-[2rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_92%,transparent)] px-6 py-8 shadow-[0_18px_42px_rgba(0,0,0,0.08)] lg:px-8 lg:py-10">
             <div className="border-b border-(--line) pb-8">
               <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }}>
@@ -195,16 +195,16 @@ export default function StudioFooter() {
                   <span className="h-2 w-2 rounded-full bg-[color:var(--gold-soft)]" />
                   Veloura Studio
                 </div>
-                <div className="mt-5 grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+                <div className="mt-5 grid gap-6 md:grid-cols-[1.2fr_0.8fr] md:items-end lg:gap-8">
                   <div>
-                    <h2 className="max-w-2xl text-4xl leading-tight text-(--text) lg:text-5xl">
+                    <h2 className="max-w-2xl text-3xl leading-tight text-(--text) md:text-4xl xl:text-5xl">
                       Modern cinematic visuals with a cleaner, wider footer layout.
                     </h2>
                     <p className="mt-5 max-w-2xl text-base leading-8 text-(--muted)">
                       The footer now feels more open and aligned with the homepage instead of looking like a separate heavy card.
                     </p>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
                     <Link
                       to="/booking"
                       className="rounded-[1.35rem] border border-[color:var(--gold)]/20 bg-[color:var(--gold)]/10 px-5 py-4 transition hover:bg-[color:var(--gold)]/14"
@@ -248,7 +248,7 @@ export default function StudioFooter() {
               </motion.div>
             </div>
 
-            <div className="mt-8 grid gap-6 lg:grid-cols-[0.7fr_0.8fr_1fr]">
+            <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-[0.7fr_0.8fr_1fr]">
               <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }}>
                 <div className="rounded-[1.5rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-5 py-5 backdrop-blur-xl">
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-(--gold)">
@@ -279,7 +279,13 @@ export default function StudioFooter() {
                 </div>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ delay: 0.16 }}>
+              <motion.div
+                className="md:col-span-2 xl:col-span-1"
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ delay: 0.16 }}
+              >
                 <div className="rounded-[1.5rem] border border-(--line) bg-[color-mix(in_oklab,var(--surface)_88%,transparent)] px-5 py-5 backdrop-blur-xl">
                   <p className="text-xs font-semibold uppercase tracking-[0.3em] text-(--gold)">
                     Contact
