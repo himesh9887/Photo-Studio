@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
+import { stripeWebhook } from "./controllers/bookingController.js";
 
 dotenv.config();
 connectDB();
@@ -11,7 +12,30 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors({ origin: process.env.CLIENT_URL || "*" }));
+const configuredOrigins = (process.env.CLIENT_URL || "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+const devAllowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://127.0.0.1:5173",
+  "http://127.0.0.1:5174",
+];
+
+const allowList = new Set([...configuredOrigins, ...devAllowedOrigins]);
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowList.has(origin)) return callback(null, true);
+      return callback(new Error("CORS blocked for this origin."));
+    },
+    credentials: true,
+  }),
+);
+app.post("/api/bookings/webhook", express.raw({ type: "application/json" }), stripeWebhook);
 app.use(express.json());
 
 app.get("/api/health", (_, res) => res.json({ ok: true }));

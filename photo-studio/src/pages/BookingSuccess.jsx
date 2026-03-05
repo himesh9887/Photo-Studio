@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { AlertCircle, Check } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 import PrimaryButton from "../components/PrimaryButton.jsx";
 import { api } from "../services/api.js";
@@ -19,13 +18,10 @@ function Confetti() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {bits.map((bit) => (
-        <motion.span
+        <span
           key={bit.id}
           className="absolute top-0 h-2 w-2 rounded-full bg-[color:var(--gold)]"
           style={{ left: bit.x }}
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 260, opacity: [0, 1, 0], rotate: 360 }}
-          transition={{ duration: 2.4, repeat: Infinity, delay: bit.delay }}
         />
       ))}
     </div>
@@ -35,36 +31,74 @@ function Confetti() {
 export default function BookingSuccess() {
   const [params] = useSearchParams();
   const bookingId = params.get("bookingId");
-  const [status, setStatus] = useState("confirming");
+  const sessionId = params.get("session_id");
+  const [status, setStatus] = useState(() => (bookingId ? "verifying" : "failed"));
+  const [message, setMessage] = useState(() =>
+    bookingId
+      ? "Syncing your confirmation..."
+      : "Missing booking details. Please retry payment from booking page.",
+  );
 
   useEffect(() => {
-    if (!bookingId) {
-      setStatus("done");
-      return;
-    }
+    if (!bookingId) return;
 
-    api
-      .patch(`/bookings/${bookingId}/confirm`, {})
-      .then(() => setStatus("done"))
-      .catch(() => setStatus("done"));
-  }, [bookingId]);
+    let attempts = 0;
+    let timer;
+    const maxAttempts = 8;
+
+    const verify = () => {
+      api
+        .post("/bookings/verify", { bookingId, sessionId })
+        .then((response) => {
+          if (response.data?.pending) {
+            attempts += 1;
+            setStatus("pending");
+            setMessage("Payment is processing. Waiting for final confirmation...");
+            if (attempts < maxAttempts) {
+              timer = setTimeout(verify, 3500);
+            }
+            return;
+          }
+
+          setStatus("success");
+          setMessage("Your payment is verified. A confirmation email has been queued.");
+        })
+        .catch((error) => {
+          setStatus("failed");
+          setMessage(error.message || "Payment verification failed. Please contact support.");
+        });
+    };
+
+    verify();
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [bookingId, sessionId]);
 
   return (
     <div className="premium-container relative flex min-h-screen items-center justify-center py-20 sm:py-24">
       <Confetti />
-      <motion.div className="relative z-10 w-full max-w-xl rounded-[2rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-6 text-center shadow-2xl sm:p-10" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}>
-        <motion.div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[color:var(--gold)] text-[color:var(--gold)] sm:h-20 sm:w-20" animate={{ scale: [0.9, 1.06, 1] }} transition={{ duration: 0.6 }}>
-          <Check size={36} />
-        </motion.div>
-        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-[color:var(--gold)]">Payment Success</p>
-        <h1 className="mt-4 text-3xl leading-tight sm:text-5xl">Booking Confirmed</h1>
-        <p className="mt-6 text-base leading-8 text-[color:var(--muted)] sm:text-lg">
-          {status === "confirming" ? "Syncing your confirmation..." : "Your session has been reserved. A confirmation email has been queued."}
+      <div className="relative z-10 w-full max-w-xl rounded-[2rem] border border-[color:var(--line)] bg-[color:var(--surface)] p-6 text-center shadow-2xl sm:p-10">
+        <div className={`mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border sm:h-20 sm:w-20 ${
+          status === "failed" ? "border-red-400 text-red-400" : "border-[color:var(--gold)] text-[color:var(--gold)]"
+        }`}>
+          {status === "failed" ? <AlertCircle size={36} /> : <Check size={36} />}
+        </div>
+        <p className={`text-sm font-semibold uppercase tracking-[0.25em] ${
+          status === "failed" ? "text-red-400" : "text-[color:var(--gold)]"
+        }`}>
+          {status === "failed" ? "Payment Pending" : status === "pending" ? "Payment Processing" : "Payment Success"}
         </p>
-        <Link to="/" className="mt-8 inline-block">
-          <PrimaryButton>Return Home</PrimaryButton>
+        <h1 className="mt-4 text-3xl leading-tight sm:text-5xl">
+          {status === "failed" ? "Verification Needed" : status === "pending" ? "Confirmation In Progress" : "Booking Confirmed"}
+        </h1>
+        <p className="mt-6 text-base leading-8 text-[color:var(--muted)] sm:text-lg">
+          {status === "verifying" ? "Syncing your confirmation..." : message}
+        </p>
+        <Link to={status === "failed" ? "/booking" : "/"} className="mt-8 inline-block">
+          <PrimaryButton>{status === "failed" ? "Back to Booking" : "Return Home"}</PrimaryButton>
         </Link>
-      </motion.div>
+      </div>
     </div>
   );
 }

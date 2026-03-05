@@ -36,6 +36,8 @@ export default function AdminDashboard() {
                 <th className="p-4">Package</th>
                 <th className="p-4">Date</th>
                 <th className="p-4">Amount</th>
+                <th className="p-4">Method</th>
+                <th className="p-4">Payment</th>
                 <th className="p-4">Status</th>
               </tr>
             </thead>
@@ -47,12 +49,14 @@ export default function AdminDashboard() {
                     <td className="p-4">{booking.packageName}</td>
                     <td className="p-4">{booking.eventDate ? new Date(booking.eventDate).toLocaleDateString() : "-"}</td>
                     <td className="p-4">INR {booking.amount?.toLocaleString("en-IN") || 0}</td>
+                    <td className="p-4 capitalize">{booking.paymentMethod || "auto"}</td>
+                    <td className="p-4 capitalize">{booking.paymentStatus || "unpaid"}</td>
                     <td className="p-4 capitalize">{booking.status || "pending"}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td className="p-6 text-[color:var(--muted)]" colSpan="5">No bookings found yet.</td>
+                  <td className="p-6 text-[color:var(--muted)]" colSpan="7">No bookings found yet.</td>
                 </tr>
               )}
             </tbody>

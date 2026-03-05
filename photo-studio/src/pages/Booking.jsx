@@ -20,14 +20,23 @@ const steps = [
   { id: 3, label: "Payment" },
 ];
 
+const paymentMethods = [
+  { id: "auto", title: "Auto (Recommended)", detail: "Show all available methods in Stripe checkout." },
+  { id: "card", title: "Card", detail: "Credit / debit card only." },
+  { id: "upi", title: "UPI", detail: "UPI apps like GPay, PhonePe, Paytm." },
+  { id: "netbanking", title: "Netbanking", detail: "Pay directly from supported banks." },
+];
+
 export default function Booking() {
   const [params] = useSearchParams();
   const preselected = params.get("package");
+  const paymentCancelled = params.get("payment") === "cancelled";
   const [step, setStep] = useState(1);
   const [selectedPackage, setSelectedPackage] = useState(preselected || packages[0].id);
   const [form, setForm] = useState(emptyForm);
   const [errors, setErrors] = useState({});
   const [paymentType, setPaymentType] = useState("full");
+  const [paymentMethod, setPaymentMethod] = useState("auto");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const today = new Date().toISOString().split("T")[0];
@@ -91,6 +100,7 @@ export default function Booking() {
         packageId: chosenPackage.id,
         packageName: chosenPackage.name,
         paymentType,
+        paymentMethod,
         amount,
       });
 
@@ -100,7 +110,11 @@ export default function Booking() {
         navigate(`/booking-success?bookingId=${response.data.bookingId}`);
       }
     } catch (error) {
-      setErrors({ submit: error.message || "Unable to start checkout." });
+      const message =
+        error.message === "Failed to fetch"
+          ? "Unable to connect to server. Please start backend and try again."
+          : error.message || "Unable to start checkout.";
+      setErrors({ submit: message });
     } finally {
       setLoading(false);
     }
@@ -112,6 +126,12 @@ export default function Booking() {
     <div className="premium-container pb-32 pt-28 md:pt-32 md:pb-24">
       <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_380px] xl:items-start">
         <section className="space-y-6 sm:space-y-8">
+          {paymentCancelled ? (
+            <div className="rounded-2xl border border-amber-400/35 bg-amber-400/10 px-4 py-3 text-sm text-amber-200">
+              Payment was cancelled. You can continue and complete payment again.
+            </div>
+          ) : null}
+
           <div className="rounded-[2rem] border border-[color:var(--line)] bg-[linear-gradient(145deg,color-mix(in_oklab,var(--surface)_96%,transparent),color-mix(in_oklab,var(--bg-soft)_90%,transparent))] px-5 py-8 shadow-2xl sm:px-8 sm:py-9 lg:px-10">
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[color:var(--gold)] sm:text-sm">Booking Flow</p>
             <h1 className="mt-4 text-3xl leading-tight sm:text-4xl lg:text-5xl xl:text-6xl">Reserve your date with a polished premium checkout.</h1>
@@ -201,7 +221,7 @@ export default function Booking() {
 
             {step === 3 ? (
               <div className="grid gap-4">
-                {[
+                {[ 
                   { id: "full", title: "Pay Full", detail: `INR ${chosenPackage.price.toLocaleString("en-IN")}` },
                   { id: "advance", title: "Pay 20% Advance", detail: `INR ${Math.round(chosenPackage.price * 0.2).toLocaleString("en-IN")}` },
                 ].map((option) => (
@@ -219,6 +239,24 @@ export default function Booking() {
                 <div className="flex items-center gap-2 rounded-2xl border border-[color:var(--line)] bg-[color:var(--bg-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
                   <ShieldCheck size={16} className="text-[color:var(--gold)]" />
                   Secure checkout powered by Stripe.
+                </div>
+
+                <div className="grid gap-3 pt-2 sm:grid-cols-2">
+                  {paymentMethods.map((method) => (
+                    <button
+                      key={method.id}
+                      type="button"
+                      onClick={() => setPaymentMethod(method.id)}
+                      className={`rounded-2xl border px-4 py-4 text-left transition ${
+                        paymentMethod === method.id
+                          ? "border-[color:var(--gold)]/35 bg-[color:var(--gold)]/10"
+                          : "border-[color:var(--line)] hover:border-[color:var(--gold)]/25"
+                      }`}
+                    >
+                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--gold)]">{method.title}</p>
+                      <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">{method.detail}</p>
+                    </button>
+                  ))}
                 </div>
               </div>
             ) : null}
@@ -251,6 +289,7 @@ export default function Booking() {
             <div className="mt-5 space-y-2 text-sm sm:text-base">
               <p>Base: INR {chosenPackage.price.toLocaleString("en-IN")}</p>
               <p>Payment: {paymentType === "full" ? "Full" : "20% Advance"}</p>
+              <p className="capitalize">Method: {paymentMethod === "auto" ? "Auto" : paymentMethod}</p>
               <p className="text-xl font-semibold text-[color:var(--gold)]">Due now: INR {amount.toLocaleString("en-IN")}</p>
             </div>
 
