@@ -1,5 +1,17 @@
 import { useMemo, useState } from "react";
-import { CalendarDays, CheckCircle2, Circle, Loader2, ShieldCheck, Sparkles } from "lucide-react";
+import {
+  BadgeCheck,
+  CalendarDays,
+  CheckCircle2,
+  Circle,
+  CreditCard,
+  IndianRupee,
+  Loader2,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  University,
+} from "lucide-react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import FormField from "../components/FormField.jsx";
 import PrimaryButton from "../components/PrimaryButton.jsx";
@@ -21,10 +33,51 @@ const steps = [
 ];
 
 const paymentMethods = [
-  { id: "auto", title: "Auto (Recommended)", detail: "Show all available methods in Stripe checkout." },
-  { id: "card", title: "Card", detail: "Credit / debit card only." },
-  { id: "upi", title: "UPI", detail: "UPI apps like GPay, PhonePe, Paytm." },
-  { id: "netbanking", title: "Netbanking", detail: "Pay directly from supported banks." },
+  {
+    id: "auto",
+    title: "Smart Checkout",
+    badge: "Recommended",
+    detail: "Stripe automatically shows the fastest available option for the customer.",
+    hint: "Best when you want card, UPI, and bank options in one flow.",
+    icon: BadgeCheck,
+  },
+  {
+    id: "card",
+    title: "Card Only",
+    badge: "Instant",
+    detail: "Use credit or debit card for immediate confirmation.",
+    hint: "Good for domestic and international card payments.",
+    icon: CreditCard,
+  },
+  {
+    id: "upi",
+    title: "UPI",
+    badge: "Mobile",
+    detail: "Pay using GPay, PhonePe, Paytm, BHIM, and supported UPI apps.",
+    hint: "Best for quick mobile payments in India.",
+    icon: Smartphone,
+  },
+  {
+    id: "netbanking",
+    title: "Netbanking",
+    badge: "Bank Transfer",
+    detail: "Redirect to a supported bank and complete payment securely there.",
+    hint: "Useful when customers prefer direct bank login.",
+    icon: University,
+  },
+];
+
+const paymentPlans = [
+  {
+    id: "full",
+    title: "Pay Full",
+    description: "Complete booking in one step and avoid a second payment later.",
+  },
+  {
+    id: "advance",
+    title: "Pay 20% Advance",
+    description: "Reserve your date now and settle the remaining amount closer to the event.",
+  },
 ];
 
 export default function Booking() {
@@ -43,6 +96,7 @@ export default function Booking() {
 
   const chosenPackage = useMemo(() => packages.find((item) => item.id === selectedPackage) || packages[0], [selectedPackage]);
   const amount = paymentType === "full" ? chosenPackage.price : Math.round(chosenPackage.price * 0.2);
+  const selectedPaymentMethod = paymentMethods.find((method) => method.id === paymentMethod) || paymentMethods[0];
 
   const updateField = (name, value) => {
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -221,42 +275,117 @@ export default function Booking() {
 
             {step === 3 ? (
               <div className="grid gap-4">
-                {[ 
-                  { id: "full", title: "Pay Full", detail: `INR ${chosenPackage.price.toLocaleString("en-IN")}` },
-                  { id: "advance", title: "Pay 20% Advance", detail: `INR ${Math.round(chosenPackage.price * 0.2).toLocaleString("en-IN")}` },
-                ].map((option) => (
-                  <button
-                    key={option.id}
-                    type="button"
-                    className={`rounded-[1.5rem] border p-5 text-left transition ${paymentType === option.id ? "gold-glow border-[color:var(--gold)]/30 bg-[color:var(--bg-soft)]" : "border-[color:var(--line)] hover:border-[color:var(--gold)]/22"}`}
-                    onClick={() => setPaymentType(option.id)}
-                  >
-                    <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[color:var(--gold)]">{option.title}</p>
-                    <p className="mt-2 text-2xl font-semibold">{option.detail}</p>
-                    <p className="mt-2 text-sm text-[color:var(--muted)]">{option.id === "full" ? "Best for complete confirmation in one step." : "Secure your date now and settle remaining amount later."}</p>
-                  </button>
-                ))}
-                <div className="flex items-center gap-2 rounded-2xl border border-[color:var(--line)] bg-[color:var(--bg-soft)] px-4 py-3 text-sm text-[color:var(--muted)]">
-                  <ShieldCheck size={16} className="text-[color:var(--gold)]" />
-                  Secure checkout powered by Stripe.
-                </div>
+                <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_300px]">
+                  <div className="space-y-5">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--gold)]">Choose Payment Plan</p>
+                      <div className="mt-3 grid gap-3">
+                        {paymentPlans.map((option) => {
+                          const optionAmount =
+                            option.id === "full"
+                              ? chosenPackage.price
+                              : Math.round(chosenPackage.price * 0.2);
+                          const activePlan = paymentType === option.id;
 
-                <div className="grid gap-3 pt-2 sm:grid-cols-2">
-                  {paymentMethods.map((method) => (
-                    <button
-                      key={method.id}
-                      type="button"
-                      onClick={() => setPaymentMethod(method.id)}
-                      className={`rounded-2xl border px-4 py-4 text-left transition ${
-                        paymentMethod === method.id
-                          ? "border-[color:var(--gold)]/35 bg-[color:var(--gold)]/10"
-                          : "border-[color:var(--line)] hover:border-[color:var(--gold)]/25"
-                      }`}
-                    >
-                      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--gold)]">{method.title}</p>
-                      <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">{method.detail}</p>
-                    </button>
-                  ))}
+                          return (
+                            <button
+                              key={option.id}
+                              type="button"
+                              className={`rounded-[1.5rem] border p-5 text-left transition ${
+                                activePlan
+                                  ? "gold-glow border-[color:var(--gold)]/35 bg-[color:var(--bg-soft)]"
+                                  : "border-[color:var(--line)] bg-transparent hover:border-[color:var(--gold)]/22"
+                              }`}
+                              onClick={() => setPaymentType(option.id)}
+                            >
+                              <div className="flex flex-wrap items-start justify-between gap-3">
+                                <div>
+                                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[color:var(--gold)]">{option.title}</p>
+                                  <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">{option.description}</p>
+                                </div>
+                                {activePlan ? (
+                                  <span className="rounded-full border border-[color:var(--gold)]/30 bg-[color:var(--gold)]/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-[color:var(--gold)]">
+                                    Selected
+                                  </span>
+                                ) : null}
+                              </div>
+                              <div className="mt-4 flex items-center gap-2 text-2xl font-semibold">
+                                <IndianRupee size={20} className="text-[color:var(--gold)]" />
+                                {optionAmount.toLocaleString("en-IN")}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="flex flex-wrap items-center justify-between gap-3">
+                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[color:var(--gold)]">Choose Payment Method</p>
+                        <div className="flex items-center gap-2 rounded-full border border-[color:var(--line)] bg-[color:var(--bg-soft)] px-3 py-1.5 text-[11px] uppercase tracking-[0.14em] text-[color:var(--muted)]">
+                          <ShieldCheck size={14} className="text-[color:var(--gold)]" />
+                          Secure Stripe Checkout
+                        </div>
+                      </div>
+
+                      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                        {paymentMethods.map((method) => {
+                          const Icon = method.icon;
+                          const activeMethod = paymentMethod === method.id;
+
+                          return (
+                            <button
+                              key={method.id}
+                              type="button"
+                              onClick={() => setPaymentMethod(method.id)}
+                              className={`rounded-[1.5rem] border p-4 text-left transition ${
+                                activeMethod
+                                  ? "border-[color:var(--gold)]/35 bg-[color:var(--gold)]/10 shadow-[0_18px_36px_rgba(212,175,55,0.08)]"
+                                  : "border-[color:var(--line)] hover:border-[color:var(--gold)]/25"
+                              }`}
+                            >
+                              <div className="flex items-start justify-between gap-3">
+                                <span className="inline-flex rounded-2xl bg-[color:var(--gold)]/12 p-3 text-[color:var(--gold)]">
+                                  <Icon size={18} />
+                                </span>
+                                <span className="rounded-full border border-[color:var(--line)] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[color:var(--muted)]">
+                                  {method.badge}
+                                </span>
+                              </div>
+                              <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--gold)]">{method.title}</p>
+                              <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">{method.detail}</p>
+                              <p className="mt-3 text-xs leading-5 text-[color:var(--muted)]/90">{method.hint}</p>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="rounded-[1.75rem] border border-[color:var(--line)] bg-[linear-gradient(145deg,color-mix(in_oklab,var(--surface)_94%,transparent),color-mix(in_oklab,var(--bg-soft)_92%,transparent))] p-5">
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--gold)]">Payment Snapshot</p>
+                    <div className="mt-4 space-y-4">
+                      <div className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-4">
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-[color:var(--muted)]">Amount Due Now</p>
+                        <p className="mt-2 text-3xl font-semibold">INR {amount.toLocaleString("en-IN")}</p>
+                        <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+                          {paymentType === "full"
+                            ? "Full booking amount will be collected in this checkout."
+                            : "Advance amount confirms your booking slot today."}
+                        </p>
+                      </div>
+
+                      <div className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-4">
+                        <p className="text-[11px] uppercase tracking-[0.14em] text-[color:var(--muted)]">Selected Method</p>
+                        <p className="mt-2 text-lg font-semibold">{selectedPaymentMethod.title}</p>
+                        <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">{selectedPaymentMethod.detail}</p>
+                      </div>
+
+                      <div className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-4 text-sm leading-6 text-[color:var(--muted)]">
+                        After clicking proceed, you will be redirected to Stripe checkout to complete the payment safely.
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ) : null}
@@ -289,7 +418,7 @@ export default function Booking() {
             <div className="mt-5 space-y-2 text-sm sm:text-base">
               <p>Base: INR {chosenPackage.price.toLocaleString("en-IN")}</p>
               <p>Payment: {paymentType === "full" ? "Full" : "20% Advance"}</p>
-              <p className="capitalize">Method: {paymentMethod === "auto" ? "Auto" : paymentMethod}</p>
+              <p>Method: {selectedPaymentMethod.title}</p>
               <p className="text-xl font-semibold text-[color:var(--gold)]">Due now: INR {amount.toLocaleString("en-IN")}</p>
             </div>
 
