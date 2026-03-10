@@ -5,9 +5,9 @@ import { useTheme } from "../context/ThemeContext.jsx";
 
 const quickLinks = [
   { label: "Home", to: "/" },
+  { label: "About", to: "/about" },
   { label: "Gallery", to: "/gallery" },
   { label: "Packages", to: "/packages" },
-  { label: "About", to: "/about" },
   { label: "Contact", to: "/contact" },
 ];
 

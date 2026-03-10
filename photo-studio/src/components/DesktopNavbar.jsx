@@ -5,9 +5,9 @@ import { useTheme } from "../context/ThemeContext.jsx";
 
 const navItems = [
   { to: "/", label: "Home" },
+  { to: "/about", label: "About" },
   { to: "/gallery", label: "Gallery" },
   { to: "/packages", label: "Packages" },
-  { to: "/about", label: "About" },
   { to: "/booking", label: "Booking" },
   { to: "/contact", label: "Contact" },
 ];
