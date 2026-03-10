@@ -16,13 +16,13 @@ export default function HomeCtaSection() {
             boxShadow: "var(--shadow-premium)",
           }}
         >
-          <div className="absolute inset-0 border border-[rgba(255,255,255,0.12)]" />
+          <div className="absolute inset-0 border" style={{ borderColor: "var(--cta-border)" }} />
           <img
             src="https://images.unsplash.com/photo-1510076857177-4ee6b52e9095?auto=format&fit=crop&w=1800&q=80"
             alt="Studio call to action"
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(8,8,8,0.9),rgba(8,8,8,0.48),rgba(8,8,8,0.84))]" />
+          <div className="absolute inset-0" style={{ background: "var(--cta-overlay)" }} />
           <div className="absolute inset-y-0 right-0 hidden w-1/2 bg-[linear-gradient(120deg,transparent,rgba(212,175,55,0.08))] lg:block" />
           <div className="absolute -right-16 top-0 h-44 w-44 rounded-full bg-[rgba(212,175,55,0.14)] blur-3xl" />
 
@@ -44,7 +44,7 @@ export default function HomeCtaSection() {
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 className="inline-flex min-h-[3rem] w-full items-center justify-center gap-2.5 rounded-full px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] sm:min-h-0 sm:gap-3 sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.22em] sm:w-auto"
-                style={{ background: "var(--gold)", color: "#15110c" }}
+                style={{ background: "var(--gold)", color: "var(--button-ink)" }}
               >
                 Book Now <ArrowRight size={18} />
               </motion.span>

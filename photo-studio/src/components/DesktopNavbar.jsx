@@ -63,8 +63,8 @@ export default function DesktopNavbar({ scrolled }) {
                     className={({ isActive }) =>
                       `rounded-full px-2.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.08em] transition-colors md:px-3 md:text-[11px] md:tracking-[0.12em] lg:px-4 lg:py-2 lg:text-xs lg:tracking-[0.2em] ${
                         isActive
-                          ? "bg-[color:var(--gold)] text-black"
-                          : "text-[color:var(--text)]/76 hover:bg-white/5 hover:text-[color:var(--text)]"
+                          ? "bg-[color:var(--gold)] text-[color:var(--button-ink)]"
+                          : "text-[color:var(--text)]/76 hover:bg-[color:var(--hover-surface)] hover:text-[color:var(--text)]"
                       }`
                     }
                   >

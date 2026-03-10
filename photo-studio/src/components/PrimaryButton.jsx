@@ -6,8 +6,8 @@ export default function PrimaryButton({ children, className = "", variant = "sol
 
   const look =
     variant === "outline"
-      ? "border border-[color:var(--gold)] text-[color:var(--gold)] hover:bg-[color:var(--gold)] hover:text-black"
-      : "bg-[color:var(--gold)] text-black hover:gold-glow";
+      ? "border border-[color:var(--gold)] text-[color:var(--gold)] hover:bg-[color:var(--gold)] hover:text-[color:var(--button-ink)]"
+      : "bg-[color:var(--gold)] text-[color:var(--button-ink)] hover:gold-glow";
 
   return (
     <motion.button

@@ -90,11 +90,11 @@ export default function HeroSection() {
                 </AnimatePresence>
               </div>
 
-              <div className="mx-3 mt-3 rounded-[1rem] border px-3 py-2.5 backdrop-blur-xl sm:mx-0 sm:absolute sm:bottom-6 sm:left-6 sm:mt-0 sm:max-w-[18rem] sm:rounded-[1.5rem] sm:px-5 sm:py-4" style={{ borderColor: "rgba(255,255,255,0.12)", background: "rgba(12,12,12,0.58)" }}>
+              <div className="mx-3 mt-3 rounded-[1rem] border px-3 py-2.5 backdrop-blur-xl sm:mx-0 sm:absolute sm:bottom-6 sm:left-6 sm:mt-0 sm:max-w-[18rem] sm:rounded-[1.5rem] sm:px-5 sm:py-4" style={{ borderColor: "var(--hero-panel-line)", background: "var(--hero-panel-bg)" }}>
                 <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[color:#efd07b] sm:text-xs sm:tracking-[0.28em]">
                   Studio Positioning
                 </p>
-                <p className="mt-1.5 text-[11px] leading-5 text-white/74 sm:mt-3 sm:text-sm sm:leading-7">
+                <p className="mt-1.5 text-[11px] leading-5 sm:mt-3 sm:text-sm sm:leading-7" style={{ color: "var(--hero-panel-text)" }}>
                   Stronger first impression, cleaner trust signals, and better booking intent.
                 </p>
               </div>
@@ -117,7 +117,7 @@ export default function HeroSection() {
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     className="gold-glow inline-flex min-h-[3rem] w-full items-center justify-center gap-2.5 rounded-full px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] sm:min-h-0 sm:gap-3 sm:px-8 sm:py-4 sm:text-sm sm:tracking-[0.22em] sm:w-auto"
-                    style={{ background: "var(--gold)", color: "#15110c" }}
+                    style={{ background: "var(--gold)", color: "var(--button-ink)" }}
                   >
                     Book Now <ArrowRight size={18} />
                   </motion.span>

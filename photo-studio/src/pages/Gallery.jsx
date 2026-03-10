@@ -82,7 +82,7 @@ export default function Gallery() {
                   className="w-full rounded-full px-3 py-2.5 text-[10px] font-semibold uppercase tracking-[0.14em] sm:w-auto sm:px-5 sm:py-3 sm:text-xs sm:tracking-[0.22em]"
                   style={{
                     background: activeFilter ? "var(--gold)" : "color-mix(in oklab, var(--surface) 92%, transparent)",
-                    color: activeFilter ? "#13100c" : "var(--text)",
+                    color: activeFilter ? "var(--button-ink)" : "var(--text)",
                     border: `1px solid ${activeFilter ? "transparent" : "var(--line)"}`,
                     boxShadow: activeFilter
                       ? "0 12px 24px color-mix(in oklab, var(--gold) 18%, transparent)"

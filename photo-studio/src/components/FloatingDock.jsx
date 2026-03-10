@@ -59,7 +59,7 @@ export default function FloatingDock() {
                   }
                   className={`flex min-h-[3rem] flex-col items-center justify-center rounded-xl px-0.5 py-1.5 text-[9px] font-semibold uppercase tracking-[0.08em] transition-colors ${
                     active
-                      ? "bg-[color:var(--gold)] text-black"
+                      ? "bg-[color:var(--gold)] text-[color:var(--button-ink)]"
                       : "text-[color:var(--text)]/82"
                   }`}
                   style={

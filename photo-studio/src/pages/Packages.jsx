@@ -65,7 +65,7 @@ export default function Packages() {
                 key={item.id}
                 className={`rounded-full border px-3 py-2.5 text-center text-[10px] font-semibold uppercase tracking-[0.14em] sm:px-5 sm:py-3 sm:text-xs sm:tracking-[0.2em] ${
                   index === 1
-                    ? "border-transparent bg-(--gold) text-[#13100c] shadow-[0_12px_24px_rgba(212,175,55,0.18)]"
+                    ? "border-transparent bg-(--gold) text-[color:var(--button-ink)] shadow-[0_12px_24px_rgba(212,175,55,0.18)]"
                     : "border-(--line) bg-[color-mix(in_oklab,var(--surface)_92%,transparent)] text-(--text)"
                 }`}
               >
@@ -106,7 +106,7 @@ export default function Packages() {
                     <span
                       className={`rounded-full px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] sm:text-[10px] ${
                         featured
-                          ? "bg-(--gold) text-[#13100c]"
+                          ? "bg-(--gold) text-[color:var(--button-ink)]"
                           : "border border-(--line) bg-[color-mix(in_oklab,var(--surface)_90%,transparent)] text-(--muted)"
                       }`}
                     >
